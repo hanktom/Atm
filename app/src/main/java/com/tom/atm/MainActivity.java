@@ -9,9 +9,11 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     private final static int REQUEST_LOGIN = 102;
+    private static final int REQUEST_USERINFO = 105;
     boolean logon = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +31,10 @@ public class MainActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent userInfo = new Intent(MainActivity.this, UserInfoActivity.class);
+                startActivityForResult(userInfo, REQUEST_USERINFO);
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
             }
         });
     }
@@ -38,12 +42,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_LOGIN){
-            if (resultCode == RESULT_OK){
-
-            }else{
-                finish();
-            }
+        switch(requestCode){
+            case REQUEST_LOGIN:
+                if (resultCode == RESULT_OK){
+                    String userid = data.getStringExtra("EXRA_USERID");
+                    Toast.makeText(this, "Login userid: " +userid, Toast.LENGTH_LONG).show();
+                }else{
+                    finish();
+                }
+                break;
+            case REQUEST_USERINFO:
+                if (resultCode == RESULT_OK){
+                    String nickname = data.getStringExtra("EXRA_NICKNAME");
+                    String phone = data.getStringExtra("EXRA_PHONE");
+                    Toast.makeText(this, "Nickname: " +nickname, Toast.LENGTH_LONG).show();
+                    Toast.makeText(this, "Phone " +phone, Toast.LENGTH_LONG).show();
+                }
+                break;
         }
     }
 
