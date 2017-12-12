@@ -47,14 +47,18 @@ public class MainActivity extends AppCompatActivity {
                 if (resultCode == RESULT_OK){
                     String userid = data.getStringExtra("EXRA_USERID");
                     Toast.makeText(this, "Login userid: " +userid, Toast.LENGTH_LONG).show();
+                    getSharedPreferences("atm", MODE_PRIVATE)
+                            .edit()
+                            .putString("USERID", userid)
+                            .apply();
                 }else{
                     finish();
                 }
                 break;
             case REQUEST_USERINFO:
                 if (resultCode == RESULT_OK){
-                    String nickname = data.getStringExtra("EXRA_NICKNAME");
-                    String phone = data.getStringExtra("EXRA_PHONE");
+                    String nickname = data.getStringExtra("EXTRA_NICKNAME");
+                    String phone = data.getStringExtra("EXTRA_PHONE");
                     Toast.makeText(this, "Nickname: " +nickname, Toast.LENGTH_LONG).show();
                     Toast.makeText(this, "Phone " +phone, Toast.LENGTH_LONG).show();
                 }
