@@ -1,5 +1,6 @@
 package com.tom.atm;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +29,11 @@ public class UserInfoActivity extends AppCompatActivity {
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.aaa, android.R.layout.simple_list_item_1);
         ages.setAdapter(adapter);
+    }
+
+    public void addr(View view){
+//        startActivity(new Intent(this, AddrActivity.class));
+        startActivity(new Intent(this, CityActivity.class));
     }
 
     public void ok(View view){
